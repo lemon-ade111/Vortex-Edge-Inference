@@ -1,0 +1,12 @@
+build/
+bin/
+*.o
+*.so
+*.a
+onnx-lib/
+*.onnx
+*.tgz
+*.jpg
+*.png
+.vscode/
+.idea/
