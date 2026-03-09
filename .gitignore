@@ -10,3 +10,4 @@ onnx-lib/
 *.png
 .vscode/
 .idea/
+*.tgz.*
