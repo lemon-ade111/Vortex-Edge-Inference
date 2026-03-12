@@ -26,3 +26,24 @@
 
 ```text
 [ Camera/Source ] -> [ Producer Thread ] -> [ Thread-Safe Queue (Max 5) ] -> [ Consumer Threads (Worker Pool) ] -> [ ONNX Inference ]
+
+## 📅 Development Roadmap | 开发路线图
+
+### Phase 1: Embedded Infrastructure (V4L2 Base) [In Progress]
+- [x] **Task 1.1: Hardware Reconnaissance**
+  - Probed hardware capabilities via `v4l-utils`.
+  - Identified target device nodes (`/dev/video0`) and pixel formats (YUYV/MJPG).
+  - Validated hardware support for `mmap` zero-copy streaming.
+- [ ] **Task 1.2: V4L2 Device Abstraction (C++)** - *Next Step*
+- [ ] **Task 1.3: Zero-copy Memory Mapping (mmap) Implementation**
+- [ ] **Task 1.4: High-performance Buffer Queueing Logic**
+
+---
+
+## 🔍 Hardware Reconnaissance Report (Task 1.1)
+- **Target Device**: ASUS FHD Webcam (UVC Standard)
+- **Primary Node**: `/dev/video0` (Video Stream)
+- **Capabilities**: 
+  - Supports **YUYV 4:2:2** (Raw data for low-latency AI processing)
+  - Supports **MJPG** (Compressed high-frame-rate streaming)
+  - Memory I/O: **V4L2_MEMORY_MMAP** confirmed.
