@@ -1,0 +1,13 @@
+# 屏蔽编译垃圾
+build/
+bin/
+*.o
+
+# 屏蔽可执行文件
+vortex_test
+*test
+
+# 屏蔽编辑器产生的隐藏文件
+.vscode/
+.idea/
+.DS_Store
