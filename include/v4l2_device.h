@@ -4,25 +4,38 @@
 #include <string>
 #include <linux/videodev2.h>
 
+struct VideoBuffer {
+    void*  start;
+    size_t length;
+};
+
 class V4L2Device {
 public:
     explicit V4L2Device(std::string path);
     ~V4L2Device();
 
-    // 严禁拷贝：防止多个对象操作同一个硬件句柄导致系统崩溃
+    // Disable copy for hardware safety
     V4L2Device(const V4L2Device&) = delete;
     V4L2Device& operator=(const V4L2Device&) = delete;
 
     bool openDevice();
-    void closeDevice();
-    
-    // 任务 1.1 核心方法
     bool probeCapabilities();
-    bool negotiateFormat(int req_width, int req_height);
+    bool negotiateFormat(int width, int height);
+    
+    // Phase 1.2 Core Methods
+    bool initMemoryMapping();
+    void unmapMemory();
+    
+    void closeDevice();
 
 private:
     std::string dev_path_;
     int fd_ = -1;
+    
+    VideoBuffer* buffers_ = nullptr;
+    unsigned int n_buffers_ = 0;
+
+    void handleError(const std::string& prefix);
 };
 
 #endif
